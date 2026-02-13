@@ -1,0 +1,82 @@
+/* Color Variables */
+:root {
+  --primary: #001F5C;
+  --accent: #FFD700;
+  --background: #F0F8FF;
+}
+
+.careers-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--background);
+  font-family: Inter, sans-serif;
+}
+
+.animated-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--primary), var(--accent), var(--background));
+  background-size: 400% 400%;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.heading {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.subtext {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 4rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.career-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  text-align: left;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.career-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.career-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.career-card p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.career-card button {
+  background: var(--accent);
+  color: var(--primary);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}

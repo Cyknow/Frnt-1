@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Note: In Tailwind v4, 'preflight' and 'utilities' are 
+  included automatically by @import "tailwindcss"; 
+*/
+
+@keyframes backgroundMove {
+  0% { background-position: center top; }
+  100% { background-position: center bottom; }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+ 

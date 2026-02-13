@@ -1,0 +1,247 @@
+Hero Container */
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(10, 25, 47, 0.7),
+      rgba(10, 25, 47, 0.7)
+    ),
+    url("/src/assets/bird-8788491_1280.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  animation: backgroundMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+  0% { background-position: center top; }
+  100% { background-position: center bottom; }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 215, 0, 0.2), transparent 70%);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fdfdfd;
+  text-shadow: 0 0 10px gold;
+}
+
+.hero-title span {
+  color: #1e90ff;
+  text-shadow: 0 0 15px white;
+}
+
+/* --- Optimized Slider CSS --- */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 2.5rem;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.slider {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scrollRightToLeft 30s linear infinite;
+}
+
+/* Pause slider on hover */
+.slider-wrapper:hover .slider {
+  animation-play-state: paused;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.slide:hover img {
+  transform: scale(1.1);
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(10, 25, 47, 0.8);
+  color: #ffd700;
+  font-weight: 600;
+}
+
+@keyframes scrollRightToLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* Scrolls half-way through the double-array */
+}
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2rem; }
+  .slide { width: 220px; height: 140px; }
+}
+
+
+
+
+/* .hero-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(10, 25, 47, 0.7),
+      rgba(10, 25, 47, 0.7)
+    ),
+    url("/src/assets/bird-8788491_1280.jpg")
+      center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  animation: backgroundMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+  0% {
+    background-position: center top;
+  }
+  100% {
+    background-position: center bottom;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 215, 0, 0.2),
+    transparent 70%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 1rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fdfdfd;
+  text-shadow: 0 0 10px gold;
+}
+
+.hero-title span {
+  color: #1e90ff;
+  text-shadow: 0 0 15px white;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #e6e6e6;
+  letter-spacing: 1px;
+}
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 2.5rem;
+}
+
+.slider {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: scrollRightToLeft 30s linear infinite;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 auto;
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.slide:hover img {
+  opacity: 1;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5rem;
+  background: rgba(10, 25, 47, 0.6);
+  color: #ffd700;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-shadow: 0 0 5px white;
+}
+
+@keyframes scrollRightToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .slide {
+    width: 220px;
+    height: 140px;
+  }
+}
