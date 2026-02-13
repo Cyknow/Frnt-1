@@ -1,6 +1,8 @@
-import React from 'react';
+// import React from 'react';
 import { motion } from 'framer-motion';
-import { XCircle, RefreshCw, Home } from 'lucide-react';
+import { XCircle, RefreshCw, 
+    // Home 
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const VerifyIssue = () => {
