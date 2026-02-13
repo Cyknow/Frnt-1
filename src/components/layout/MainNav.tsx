@@ -3,7 +3,7 @@ import
 { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import '../../assets/Gemini_Generated_Image_dcfox3dcfox3dcfo.png'
+import logo from '../../assets/Gemini_Generated_Image_dcfox3dcfox3dcfo.png'
 import { useAuth } from '../../context/AuthProvider';
 
 const Navbar = () => {
@@ -76,7 +76,7 @@ const Navbar = () => {
             )}
             </NavLink>
 
-            <motion.button style={{backgroundColor:'blue', borderColor:'white', borderWidth:'2px', width:'5rem', borderRadius:'1rem'}}> 
+            <motion.button style={{backgroundColor:'var(--color-blue-900)', borderColor:'white', borderWidth:'2px', minWidth:'5rem', padding: '0.3rem 0', borderRadius:'1rem'}}> 
             <NavLink to="/business" className={navLinkStyling}>
             BUSINESS
             {location.pathname === '/donate' && (
@@ -87,7 +87,7 @@ const Navbar = () => {
 
         </div>
 
-            <div className="hidden md:flex gap-4 items-center ">
+            <div className="flex flex-col md:flex-row gap-5 items-center ">
                 <NavLink to="/blog" className={navLinkStyling}>
                 BLOG
                 {location.pathname === '/blog' && (
@@ -95,7 +95,8 @@ const Navbar = () => {
                 )}
                 </NavLink>
 
-                <motion.button style={{backgroundColor:'blue', borderColor:'white', borderWidth:'2px', width:'5rem', borderRadius:'1rem'}}>
+                <motion.button className='flex items-center justify-center'
+                style={{backgroundColor: 'var(--color-blue-900)', borderColor:'white', borderWidth:'2px', minWidth:'5rem', padding: '0.3rem 0', borderRadius:'1rem'}}>
                 <NavLink to="/signup" className={navLinkStyling}>
                 REGISTER
                 {location.pathname === '/signup' && (
@@ -103,7 +104,9 @@ const Navbar = () => {
                 )}
                 </NavLink>
                 </motion.button>
-                |
+
+                <span className="hidden md:block text-white/30">|</span> {/* Wrapped the pipe in a span for better styling control */}
+                
                 <NavLink to="/signinp" className={navLinkStyling}>
                 LOGIN
                 {location.pathname === '/signinp' && (
@@ -138,7 +141,7 @@ const Navbar = () => {
 </Link> */}
 
           <Link to="/" className="text-2xl font-black text-[#001F5C] tracking-tighter transition-transform duration-300 hover:scale-105">
-             <img src={'/src/assets/AIC LOGO.png'} alt="AIC FOUNDATION" 
+             <img src={logo} alt="AIC FOUNDATION" 
              className={`h-8 md:h-10 w-auto transition-all duration-500 rounded-xl ${
             isScrolled ? 'logo-white' : ''
             }`} />
@@ -149,26 +152,26 @@ const Navbar = () => {
             {/* text-[#001F5C] font-semibold text-sm hover:text-[#FFD700] transition-all */}
           <div className="hidden lg:flex gap-6">
             <NavLink to="/mission" className={({ isActive }) =>
-            `px-2 py-1 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-4 py-3 rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "font-semibold text-sm text-[#001F5C] transition-all"
             }` }> Mission </NavLink>
 
             <NavLink to="/about" className={({ isActive }) =>
-            `px-2 py-1 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-4 py-3 rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "font-semibold text-sm text-[#001F5C] transition-all"
             }` }> Who We Are </NavLink>
 
             <NavLink to="/job" className={({ isActive }) =>
-            `px-2 py-1 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-4 py-3 rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "font-semibold text-sm text-[#001F5C] transition-all"
             }` }> Careers </NavLink>
 
             <NavLink to="/contactp" className={({ isActive }) =>
-            `px-2 py-1 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-4 py-3 rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "font-semibold text-sm text-[#001F5C] transition-all"
             }` }> Contact | Support </NavLink>
 
@@ -188,26 +191,26 @@ const Navbar = () => {
             className="lg:hidden bg-[#F0F8FF] border-t border-gray-200 flex flex-col p-6 space-y-4 shadow-xl overflow-hidden"
           >
              <NavLink to="/mission" className={({ isActive }) =>
-            `px-2 py-1 mr-117 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-2 py-1 mr-full rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "text-[#001F5C] font-bold border-b border-gray-100 pb-2 transition-all"
             }` }> Mission </NavLink>
 
             <NavLink to="/about" className={({ isActive }) =>
-            `px-2 py-1 mr-117 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-2 py-1 mr-full rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "text-[#001F5C] font-bold border-b border-gray-100 pb-2 transition-all"
             }` }> Who We Are </NavLink>
 
             <NavLink to="/job" className={({ isActive }) =>
-            `px-2 py-1 mr-117 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-2 py-1 mr-full rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "text-[#001F5C] font-bold border-b border-gray-100 pb-2 transition-all"
             }` }> Careers </NavLink>
 
             <NavLink to="/contactp" className={({ isActive }) =>
-            `px-2 py-1 mr-117 rounded-lg transition-all ${ isActive 
-            ? "bg-blue-600 text-white shadow-md scale-105" 
+            `px-2 py-1 mr-full rounded-lg transition-all ${ isActive 
+            ? "bg-blue-900 text-white shadow-md scale-105" 
             : "text-[#001F5C] font-bold border-b border-gray-100 pb-2 transition-all"
             }` }> Contact | Support </NavLink>
             

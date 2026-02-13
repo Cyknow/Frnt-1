@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import type { Variants } from "framer-motion";
 import FeatureCard from "./FeatureCard";
-import '../../assets/VID-20251211-WA0026.mp4'
-
+import commercials from '../../assets/VID-20251211-WA0026.mp4';
+import mockup from '../../assets/Cyknow_MockUp.png';
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -115,9 +115,9 @@ export default function Features() {
           autoPlay
           muted
           loop
-          poster="/src/assets/Cyknow_MockUp.png"
+          poster={mockup}
           >
-            <source src="/src/assets/VID-20251211-WA0026.mp4" type="video/mp4"/>
+            <source src={commercials} type="video/mp4"/>
           </video>
           </div>
 

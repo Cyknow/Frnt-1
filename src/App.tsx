@@ -42,6 +42,8 @@ import ContactMessages from './pages/adminPage/ContactMessagesSupport';
 import NewsletterList from './pages/adminPage/NewsletterList';
 import VerifySuccess from './pages/userPage/VerifySuccess';
 import VerifyIssue from './pages/userPage/VerifyIssue';
+import ProgramTemplate from './pages/charityPage/ProgramTemplate';
+import { programData } from './pages/charityPage/data/programs';
 
 export default function App() {
   // We no longer need local state here. 
@@ -68,6 +70,11 @@ export default function App() {
         <Route path="/contactp" element={<SupportPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
+        
+        <Route path="/grants" element={<ProgramTemplate {...programData.grants} />} />
+        <Route path="/greenhouse" element={<ProgramTemplate {...programData.greenhouse} />} />
+        <Route path="/humanitarian" element={<ProgramTemplate {...programData.humanitarian} />} />
+        <Route path="/scholarships" element={<ProgramTemplate {...programData.scholarships} />} />
 
         {/* --- AUTHENTICATION --- */}
         <Route path="/signinp" element={<AuthHub />} />
