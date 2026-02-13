@@ -106,7 +106,9 @@ const AuthHub = () => {
     }
   }, [searchParams]);
 
-
+  // inside useEffect after setting the message
+  window.history.replaceState({}, document.title, window.location.pathname);
+  
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 font-sans">
       
