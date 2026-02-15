@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, 
+  // AnimatePresence, 
+  useScroll, useTransform } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react'; // Ensure lucide-react is installed
 
 const COLORS = {
