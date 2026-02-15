@@ -1,12 +1,13 @@
 export const programData = {
+  //later create it to fetch through backend and the value should increase by 2% every month, the should also be roon fo manual input
   grants: {
     title: "Grants & Empowerment",
     subtitle: "Capital for the Visionaries",
     description: "We provide the financial fuel for local innovators to transform their communities. Our mission is to eliminate barriers to entry for entrepreneurs with the vision to change the world.",
     features: [
-      { h: "The Vanguard Seed Fund", p: "Monthly micro-grants for startups in underserved areas." },
-      { h: "Women in Tech", p: "Targeted financial support for female developers and digital creators." },
-      { h: "Empowerment Workshops", p: "Business management and financial literacy training." }
+      { h: "The WCC Seed Fund", p: "Monthly micro-grants for startups in underserved areas.", link: "/blog/seed-fund-success" },
+      { h: "Women in Tech", p: "Targeted financial support for female developers and digital creators.", link: "https://x.com/wcc" },
+      { h: "Empowerment Workshops", p: "Business management and financial literacy training.", link: "/blog/seed-fund-success" }
     ],
     stats: [
       { label: "Disbursed", value: "$250k+" },
@@ -17,13 +18,13 @@ export const programData = {
     accentColor: "blue"
   },
   greenhouse: {
-    title: "Greenhouse Initiative",
+    title: "Agrotech / Greenhouse Initiative",
     subtitle: "Sustaining the Soil, Feeding the Soul",
     description: "Utilizing climate-smart technology, we are building a network of high-tech greenhouses that provide year-round food security.",
     features: [
-      { h: "Hydroponic Labs", p: "Teaching high-yield, low-water farming techniques." },
-      { h: "Zero-Hunger Logistics", p: "Connecting harvests directly to local food banks." },
-      { h: "Eco-Guardians", p: "Youth programs teaching the science of sustainable soil health." }
+      { h: "Hydroponic Labs", p: "Teaching high-yield, low-water farming techniques.", link: "/blog/seed-fund-success" },
+      { h: "Zero-Hunger Logistics", p: "Connecting harvests directly to local food banks.", link: "/blog/seed-fund-success" },
+      { h: "Eco-Guardians", p: "Youth programs teaching the science of sustainable soil health.", link: "/blog/seed-fund-success" }
     ],
     stats: [
       { label: "Organic Produce", value: "10k+ Tons" },
@@ -38,9 +39,9 @@ export const programData = {
     subtitle: "Rapid Response, Lasting Impact",
     description: "Providing immediate relief and long-term infrastructure to ensure every human has access to basic necessities.",
     features: [
-      { h: "Clean Water Access", p: "Building solar-powered boreholes in remote villages." },
-      { h: "Vanguard Health Kits", p: "Mobile clinics providing essential checkups and medicine." },
-      { h: "Crisis Response", p: "Emergency supplies for areas hit by natural disasters." }
+      { h: "Clean Water Access", p: "Building solar-powered boreholes in remote villages.", link: "/blog/seed-fund-success" },
+      { h: "WCC Health Kits", p: "Mobile clinics providing essential checkups and medicine.", link: "/blog/seed-fund-success" },
+      { h: "Crisis Response", p: "Emergency supplies for areas hit by natural disasters.", link: "/blog/seed-fund-success" }
     ],
     stats: [
       { label: "Clean Water Access", value: "200k" },
@@ -55,9 +56,9 @@ export const programData = {
     subtitle: "The Architecture of Tomorrow",
     description: "Future-proofing the workforce through rigorous education and vocational mastery in modern trades.",
     features: [
-      { h: "Legacy Scholarships", p: "Full tuition for high-achieving students in STEM and Arts." },
-      { h: "Vanguard Academy", p: "Hands-on training in carpentry, renewable energy, and UI/UX." },
-      { h: "Mentorship Bridge", p: "Pairing students with industry leaders for job placement." }
+      { h: "Legacy Scholarships", p: "Full tuition for high-achieving students in STEM and Arts.", link: "/blog/seed-fund-success" },
+      { h: "WCC Academy", p: "Hands-on training in carpentry, renewable energy, and UI/UX.", link: "/blog/seed-fund-success" },
+      { h: "Mentorship Bridge", p: "Pairing students with industry leaders for job placement.", link: "/blog/seed-fund-success" }
     ],
     stats: [
       { label: "Graduates", value: "1,200" },

@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import theme from '../../components/themes/Theme';
 
-
+import bgImg from '../../assets/VID-20251211-WA0026.mp4'
 // IMPORT LEGAL CONTENT
 import { PrivacyPolicyContent } from '../../components/constants/PrivacyPolicy';
 import { TermsOfServiceContent } from '../../components/constants/TermsOfService';
@@ -108,14 +108,19 @@ const SignupPage = () => {
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden font-sans bg-slate-950">
       
       {/* VIDEO BACKGROUND */}
-      <div className="absolute inset-0 -z-10">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40 grayscale">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-hand-shaking-hands-in-the-field-42358-large.mp4" type="video/mp4" />
+      <div className="absolute inset-0 -z-0 overflow-hidden bg-slate-950">
+        <video autoPlay loop muted playsInline         
+        // src={bgImg}
+        className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale">          
+        <source 
+          src={bgImg}
+          // src="https://assets.mixkit.co/videos/preview/mixkit-hand-shaking-hands-in-the-field-42358-large.mp4" 
+          type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10 py-10">
+      <div className="container mx-auto px-6 relative z-20 grid lg:grid-cols-2 gap-12 items-center">
         
         {/* LEFT SIDE: THE PITCH */}
         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} className="text-white space-y-8">

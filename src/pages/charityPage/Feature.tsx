@@ -4,6 +4,7 @@ import type { Variants } from "framer-motion";
 import FeatureCard from "./FeatureCard";
 import commercials from '../../assets/VID-20251211-WA0026.mp4';
 import mockup from '../../assets/Cyknow_MockUp.png';
+import About from "./About";
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -49,6 +50,8 @@ export default function Features() {
 
   return (
     <motion.section>
+      {/* import aboutPage here */}
+      <About/>
       <motion.div
       className="container mx-auto py-16 px-4"
       variants={containerVariants}
@@ -85,7 +88,7 @@ export default function Features() {
         ))}
       </motion.div>
       </motion.div>
-
+      
       {/* CORPORATE / PARTNERS */}
       <motion.div className="py-24 bg-slate-900">
         <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">

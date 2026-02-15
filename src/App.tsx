@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
-// import { useAuth } from './context/AuthProvider'; // Import the hook
+import { useAuth } from './context/AuthProvider'; // Import the hook
 
 // Layout & UI
 import MainNav from './components/layout/MainNav';
@@ -22,7 +22,13 @@ import PartnerLogo from './pages/charityPage/PartnerLogo';
 import WhyChooseUs from './pages/charityPage/WhyChooseUs';
 import SupportPage from './pages/charityPage/Support';
 import GrantApplication from './pages/charityPage/GrantApplication';
-import { PortfolioPage } from './pages/PortfolioPage/Portfolio1';
+import Portfolio from './pages/PortfolioPage/PortfolioHome';
+import ProgramTemplate from './pages/charityPage/ProgramTemplate';
+import { programData } from './pages/charityPage/data/programs';
+import { ProjectPortfolioPage } from './pages/PortfolioPage/ProjectPortfolioPage';
+import { PortfolioHero } from './pages/PortfolioPage/PortfolioHero';
+import { SkillsHub } from './pages/PortfolioPage/SkillsHub';
+// import { PortfolioPage } from './pages/PortfolioPage/Portfolio1';
 // import Vasertile from './pages/charityPage/Vasertile';
 
 // Auth & Protection
@@ -42,12 +48,12 @@ import ContactMessages from './pages/adminPage/ContactMessagesSupport';
 import NewsletterList from './pages/adminPage/NewsletterList';
 import VerifySuccess from './pages/userPage/VerifySuccess';
 import VerifyIssue from './pages/userPage/VerifyIssue';
-import ProgramTemplate from './pages/charityPage/ProgramTemplate';
-import { programData } from './pages/charityPage/data/programs';
+import { AffiliatePage } from './pages/PortfolioPage/AffiliateHub';
 
 export default function App() {
   // We no longer need local state here. 
   // ProtectedRoute handles the user logic internally via context.
+  const { user } = useAuth(); // or however you track login status
 
   return (
     <div className='app'>
@@ -68,13 +74,17 @@ export default function App() {
         <Route path="/partnerlogo" element={<PartnerLogo />} />
         <Route path="/whychooseusp" element={<WhyChooseUs />} />
         <Route path="/contactp" element={<SupportPage />} />
-        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/portfolio" element={<ProjectPortfolioPage />} />
+        <Route path="/portfolio" element={<PortfolioHero />} />
+        <Route path="/portfolio" element={<SkillsHub />} />
+        <Route path="/cpa" element={<AffiliatePage />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         
-        <Route path="/grants" element={<ProgramTemplate {...programData.grants} />} />
-        <Route path="/greenhouse" element={<ProgramTemplate {...programData.greenhouse} />} />
-        <Route path="/humanitarian" element={<ProgramTemplate {...programData.humanitarian} />} />
-        <Route path="/scholarships" element={<ProgramTemplate {...programData.scholarships} />} />
+        <Route path="/grants" element={<ProgramTemplate isLoggedIn={!!user} {...programData.grants} />} />
+        <Route path="/greenhouse" element={<ProgramTemplate isLoggedIn={!!user} {...programData.greenhouse} />} />
+        <Route path="/humanitarian" element={<ProgramTemplate isLoggedIn={!!user} {...programData.humanitarian} />} />
+        <Route path="/scholarships" element={<ProgramTemplate isLoggedIn={!!user} {...programData.scholarships} />} />
 
         {/* --- AUTHENTICATION --- */}
         <Route path="/signinp" element={<AuthHub />} />

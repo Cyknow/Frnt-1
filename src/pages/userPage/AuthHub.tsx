@@ -14,6 +14,7 @@ import { useAuth } from '../../context/AuthProvider'; // 1. Import Auth Context
 import { PrivacyPolicyContent } from '../../components/constants/PrivacyPolicy';
 import { TermsOfServiceContent } from '../../components/constants/TermsOfService';
 import api from '../../axiosConfig';
+import bgVid from '../../assets/VID-20251211-WA0026.mp4'
 
 const AuthHub = () => {
   const [searchParams] = useSearchParams(); // 2. Initialize it
@@ -112,15 +113,19 @@ const AuthHub = () => {
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 font-sans">
       
+      
       {/* BACKGROUND VIDEO */}
-      <div className="absolute inset-0 -z-10">
-        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30 grayscale">
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-hands-holding-a-small-plant-42354-large.mp4" type="video/mp4" />
+      <div className="absolute inset-0 -z-0">
+        <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40 grayscale">
+          <source 
+          src={bgVid}
+          // src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-hands-holding-a-small-plant-42354-large.mp4" 
+          type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-linear-to-br from-slate-950 via-transparent to-slate-950" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-br from-slate-950 via-slate-950/80 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="container mx-auto px-6 relative z-20 grid lg:grid-cols-2 gap-12 items-center">
         
         {/* LEFT SIDE: DYNAMIC COPY */}
         <motion.div 
