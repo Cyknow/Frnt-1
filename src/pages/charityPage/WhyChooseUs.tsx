@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import 
+// React, 
+{ useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Zap, Globe, TrendingUp } from 'lucide-react';
 import theme from '../../components/themes/Theme';

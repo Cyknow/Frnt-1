@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"; // Added hooks
-import { motion, type Variants, AnimatePresence, delay } from "framer-motion";
+import { motion, type Variants, AnimatePresence, } from "framer-motion";
 import { Link } from "react-router-dom";
 import theme from "../../components/themes/Theme";
 import Counter from "./Counter";

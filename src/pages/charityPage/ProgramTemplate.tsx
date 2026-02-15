@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { 
+  // useLocation,
+   useNavigate } from 'react-router-dom';
 
 interface ProgramProps {
   title: string;
@@ -35,7 +37,7 @@ const calculateGrowth = (baseValue: number) => {
 
 const ProgramTemplate: React.FC<ProgramProps> = ({ title, subtitle, description, features, stats, accentColor, isLoggedIn = false }) => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   // 1. AUTO-DOWNLOAD LOGIC (Handles return from login)
 useEffect(() => {

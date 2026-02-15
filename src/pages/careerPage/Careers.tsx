@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import 
+// React, 
+{ useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import Vasertile from "../charityPage/Vasertile";
@@ -112,7 +114,7 @@ export default function CareersPage() {
 
         {/* ROLES GRID */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
-          {roles.map((role, index) => (
+          {roles.map((role) => (
             <motion.div
               key={role.title}
               className="group relative p-[1px] rounded-[2rem] overflow-hidden"
