@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, 
-  AnimatePresence, 
-  useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react'; // Ensure lucide-react is installed
 
 const COLORS = {
   primary: '#001F5C',
   accent: '#FFD700',
-  background: '#F0F8FF',
+  backgroundDay: '#F1F5F9', // Updated for daytime visibility
+  backgroundNight: '#000814',
   space: '#000814',
   industrial: '#121212',
 };
@@ -42,26 +42,46 @@ const SOCIAL_LINKS = [
 
 export const SkillsHub: React.FC = () => {
   const [mode, setMode] = useState<'software' | 'industrial'>('software');
-  const [isNightOps, setIsNightOps] = useState(false);
   const containerRef = useRef(null);
+
+  // === SHARED NIGHT OPS STATE (Synced via LocalStorage) ===
+  const [isNightOps, setIsNightOps] = useState(() => {
+    const saved = localStorage.getItem('nightOps');
+    if (saved !== null) return JSON.parse(saved);
+    const hour = new Date().getHours();
+    return hour >= 18 || hour < 6;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('nightOps', JSON.stringify(isNightOps));
+  }, [isNightOps]);
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
   const morphRotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
 
-  useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour >= 18 || hour < 6) setIsNightOps(true);
-  }, []);
-
   return (
-    <div ref={containerRef} className="relative transition-all duration-1000 overflow-hidden mt-[-20rem] " 
-         style={{ backgroundColor: isNightOps ? (mode === 'software' ? COLORS.space : COLORS.industrial) : COLORS.background }}>
+    <div ref={containerRef} className="relative transition-all duration-1000 overflow-hidden mt-[-20rem]" 
+         style={{ backgroundColor: isNightOps ? (mode === 'software' ? COLORS.space : COLORS.industrial) : COLORS.backgroundDay }}>
       
-      {/* 1. THE MODE TOGGLE */}
-      <div className="fixed top-28 right-6 z-50">
+      {/* === GLOBAL NIGHT OPS TOGGLE === */}
+      <button
+        onClick={() => setIsNightOps(!isNightOps)}
+        className="fixed top-8 right-8 z-[100] p-4 rounded-full backdrop-blur-md border transition-all duration-500 shadow-xl"
+        style={{ 
+          backgroundColor: isNightOps ? 'rgba(255,255,255,0.1)' : 'rgba(0,31,92,0.1)',
+          borderColor: isNightOps ? COLORS.accent : COLORS.primary,
+          color: isNightOps ? COLORS.accent : COLORS.primary
+        }}
+      >
+        {isNightOps ? <Sun size={24} /> : <Moon size={24} />}
+      </button>
+
+      {/* 1. THE MODE TOGGLE (Software vs Industrial) */}
+      <div className="fixed top-28 right-8 z-50">
         <button 
           onClick={() => setMode(mode === 'software' ? 'industrial' : 'software')}
           className="p-1 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center gap-3 pr-5 shadow-2xl"
+          style={{ borderColor: isNightOps ? 'rgba(255,255,255,0.2)' : COLORS.primary }}
         >
           <motion.div 
             animate={{ rotate: mode === 'software' ? 0 : 180 }}
@@ -69,8 +89,8 @@ export const SkillsHub: React.FC = () => {
             {mode === 'software' ? '💻' : '🏗️'}
           </motion.div>
           <div className="text-left">
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/50">Current View</p>
-            <p className="text-xs font-black uppercase text-white">{mode === 'software' ? 'Software' : 'Industrial'}</p>
+            <p className="text-[10px] font-black uppercase tracking-widest" style={{ color: isNightOps ? 'rgba(255,255,255,0.5)' : COLORS.primary }}>Current View</p>
+            <p className="text-xs font-black uppercase" style={{ color: isNightOps ? 'white' : COLORS.primary }}>{mode === 'software' ? 'Software' : 'Industrial'}</p>
           </div>
         </button>
       </div>
@@ -88,31 +108,31 @@ export const SkillsHub: React.FC = () => {
         {/* 3. PROFICIENCY MATRIX */}
         <section className="py-24 max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black mb-4 uppercase" style={{ color: isNightOps ? '#fff' : COLORS.primary }}>
+            <h2 className="text-5xl font-black mb-4 uppercase tracking-tighter" style={{ color: isNightOps ? '#fff' : COLORS.primary }}>
               Proficiency <span style={{ color: COLORS.accent }}>Matrix</span>
             </h2>
-            <p className="text-xs font-bold opacity-60 uppercase tracking-[0.4em]" style={{ color: isNightOps ? '#94a3b8' : COLORS.primary }}>
+            <p className="text-sm font-bold opacity-80 uppercase tracking-[0.4em]" style={{ color: isNightOps ? '#94a3b8' : '#334155' }}>
                {mode === 'software' ? 'Full Stack Development' : 'HSE & Industrial Operations'}
             </p>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-10">
             {(mode === 'software' ? SKILL_BARS.software : SKILL_BARS.industrial).map((skill) => (
               <div key={skill.name}>
-                <div className="flex justify-between mb-2">
-                  <span className="text-sm font-black uppercase text-white tracking-widest">{skill.name}</span>
+                <div className="flex justify-between mb-3">
+                  <span className="text-sm font-black uppercase tracking-widest" style={{ color: isNightOps ? 'white' : COLORS.primary }}>{skill.name}</span>
                   <span className="text-sm font-black" style={{ color: COLORS.accent }}>{skill.level}%</span>
                 </div>
-                <div className="h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
+                <div className="h-3 bg-black/10 rounded-full overflow-hidden border border-black/5 dark:border-white/10 dark:bg-white/5">
                   <motion.div 
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
-                    transition={{ duration: 1.5 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
                     className="h-full relative"
                     style={{ backgroundColor: skill.color }}
                   >
                     <motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2, repeat: Infinity }}
-                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
                   </motion.div>
                 </div>
               </div>
@@ -121,7 +141,7 @@ export const SkillsHub: React.FC = () => {
         </section>
 
         {/* 4. CAREER TRAJECTORY SLIDER */}
-        <section className="py-24 bg-black/30 overflow-hidden border-y border-white/5">
+        <section className="py-24 bg-black/20 overflow-hidden border-y border-white/5">
           <div className="flex">
             <motion.div 
               animate={{ x: ["0%", "-50%"] }}
@@ -129,10 +149,10 @@ export const SkillsHub: React.FC = () => {
               className="flex gap-8 whitespace-nowrap"
             >
               {[...EXPERIENCE, ...EXPERIENCE].map((exp, i) => (
-                <div key={i} className="min-w-[350px] p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl">
+                <div key={i} className="min-w-[350px] p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl">
                   <h3 className="text-xl font-black text-white whitespace-normal">{exp.role}</h3>
                   <p className="text-yellow-400 font-bold text-xs uppercase mt-2 tracking-widest">{exp.company}</p>
-                  <p className="text-slate-400 text-sm mt-6 whitespace-normal leading-relaxed">{exp.desc}</p>
+                  <p className="text-slate-300 text-sm mt-6 whitespace-normal leading-relaxed">{exp.desc}</p>
                 </div>
               ))}
             </motion.div>
@@ -141,11 +161,11 @@ export const SkillsHub: React.FC = () => {
 
         {/* 5. CERTIFICATION BADGES */}
         <section className="py-24 text-center">
-          <h2 className="text-white/40 text-[10px] font-black uppercase tracking-[0.5em] mb-12">Global Certifications</h2>
-          <div className="flex flex-wrap justify-center gap-8">
+          <h2 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12" style={{ color: isNightOps ? 'rgba(255,255,255,0.4)' : COLORS.primary }}>Global Certifications</h2>
+          <div className="flex flex-wrap justify-center gap-8 px-6">
             {['PMP', 'AWS', 'OSHA', 'HSE 1-3', 'APM', 'HRM'].map((cert) => (
               <motion.div key={cert} whileHover={{ scale: 1.1, y: -5 }}
-                className="w-24 h-24 rounded-full border border-yellow-400/20 bg-yellow-400/5 flex items-center justify-center text-[10px] font-black text-yellow-400 shadow-[0_0_20px_rgba(255,215,0,0.05)]">
+                className="w-24 h-24 rounded-full border border-yellow-400/30 bg-yellow-400/5 flex items-center justify-center text-xs font-black text-yellow-500 shadow-xl">
                 {cert}
               </motion.div>
             ))}
@@ -154,10 +174,10 @@ export const SkillsHub: React.FC = () => {
 
         {/* 6. CTA & DOWNLOADS */}
         <section className="py-20" id="links">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-center p-12 rounded-[2rem] border border-white/10 backdrop-blur-3xl bg-black/40">
-              <h2 className="text-3xl font-black text-white mb-8 md:mb-0">Ready to <span className="text-yellow-400">Launch?</span></h2>
-              <div className="flex flex-wrap gap-4">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-center p-12 rounded-[3rem] border border-white/10 backdrop-blur-3xl bg-black/40 shadow-2xl">
+              <h2 className="text-4xl font-black text-white mb-8 md:mb-0 tracking-tighter">Ready to <span className="text-yellow-400">Launch?</span></h2>
+              <div className="flex flex-wrap justify-center gap-4">
                 {SOCIAL_LINKS.map((link, index) => (
                   <motion.a 
                     key={index} 
@@ -165,14 +185,13 @@ export const SkillsHub: React.FC = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
-                    className="relative group px-10 py-4 rounded-xl text-xs font-black uppercase tracking-widest overflow-hidden transition-all"
+                    className="relative group px-10 py-4 rounded-xl text-xs font-black uppercase tracking-widest overflow-hidden transition-all shadow-lg"
                     style={{ 
                       backgroundColor: link.name === 'CV/Resume' ? '#fff' : COLORS.accent, 
                       color: COLORS.primary 
                     }}
                   >
                     <span className="relative z-10">{link.name === 'CV/Resume' ? 'Download CV' : link.name}</span>
-                    
                     {link.name === 'CV/Resume' && (
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
                         {[...Array(8)].map((_, i) => (
@@ -190,27 +209,251 @@ export const SkillsHub: React.FC = () => {
             </div>
           </div>
         </section>
- 
+
         {/* 7. CONTACT FORM */}
-        <AnimatePresence>
-        <motion.section className="py-24 pb-48" id="contact">
-          <div className="max-w-3xl mx-auto px-6 p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-3xl">
-            <h2 className="text-3xl font-black text-center text-white mb-12 uppercase tracking-widest">Send Transmission</h2>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-              <input type="text" placeholder="Full Name" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
-              <input type="email" placeholder="Email Address" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
-              <textarea rows={4} placeholder="Inquiry Details" className="w-full bg-transparent border border-white/20 rounded-2xl p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
-              <motion.button whileTap={{ scale: 0.98 }} className="w-full py-5 rounded-2xl bg-yellow-400 text-blue-900 font-black uppercase tracking-widest">
+        <section className="py-24 pb-48" id="contact">
+          <div className="max-w-3xl mx-auto px-6 p-12 rounded-[3.5rem] border border-white/10 bg-black/20 backdrop-blur-3xl shadow-2xl">
+            <h2 className="text-3xl font-black text-center text-white mb-12 uppercase tracking-widest italic">Send Transmission</h2>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-8">
+              <input type="text" placeholder="Full Name" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all placeholder:text-white/30" />
+              <input type="email" placeholder="Email Address" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all placeholder:text-white/30" />
+              <textarea rows={4} placeholder="Inquiry Details" className="w-full bg-transparent border border-white/20 rounded-2xl p-6 outline-none text-white font-bold focus:border-yellow-400 transition-all placeholder:text-white/30" />
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }} 
+                className="w-full py-6 rounded-2xl bg-yellow-400 text-blue-900 font-black uppercase tracking-widest shadow-xl"
+              >
                 Transmit Message
               </motion.button>
             </form>
           </div>
-        </motion.section>
-        </AnimatePresence>
+        </section>
       </div>
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect, useRef } from 'react';
+// import { motion, 
+//   AnimatePresence, 
+//   useScroll, useTransform } from 'framer-motion';
+
+// const COLORS = {
+//   primary: '#001F5C',
+//   accent: '#FFD700',
+//   background: '#F0F8FF',
+//   space: '#000814',
+//   industrial: '#121212',
+// };
+
+// const EXPERIENCE = [
+//   { role: "Plumber (NLNG T7 Project)", company: "Mbarie Services Limited", desc: "Full Structural Plumbing & Pipefitting Installation Engineering." },
+//   { role: "Manager/Supervisor", company: "CMIL Logistics", desc: "Forklift & Logistics oversight, ensuring safety and efficiency." },
+//   { role: "Biochemistry Researcher", company: "Sunchix Pharmacy Ltd", desc: "Laboratory testing, diagnosis, and biochemistry analysis." },
+//   { role: "Forklift Operator & HSE", company: "Cyknow Tech. Services Nig. Ltd", desc: "Safety compliance and heavy equipment operation." },
+//   { role: "ICT Personnel", company: "Crystal Lake Resort & Tours", desc: "IT Essentials and computer applications management." },
+// ];
+
+// const SKILL_BARS = {
+//   software: [
+//     { name: "React JS/TS", level: 95, color: '#61DAFB' },
+//     { name: "Node JS", level: 88, color: '#339933' },
+//     { name: "Express JS", level: 90, color: '#828282' },
+//     { name: "MongoDB", level: 85, color: '#47A248' },
+//   ],
+//   industrial: [
+//     { name: "HSE Levels 1, 2 & 3", level: 98, color: '#FF4500' },
+//     { name: "Structural Plumbing", level: 92, color: '#1E90FF' },
+//     { name: "Forklift & Maintenance", level: 95, color: '#FFD700' },
+//     { name: "Project Management (PMP)", level: 85, color: '#32CD32' },
+//   ]
+// };
+
+// const SOCIAL_LINKS = [
+//   { name: 'CV/Resume', url: '#' },
+//   { name: 'GitHub', url: '#' },
+//   { name: 'LinkedIn', url: '#' }
+// ];
+
+// export const SkillsHub: React.FC = () => {
+//   const [mode, setMode] = useState<'software' | 'industrial'>('software');
+//   const [isNightOps, setIsNightOps] = useState(false);
+//   const containerRef = useRef(null);
+
+//   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
+//   const morphRotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
+
+//   useEffect(() => {
+//     const hour = new Date().getHours();
+//     if (hour >= 18 || hour < 6) setIsNightOps(true);
+//   }, []);
+
+//   return (
+//     <div ref={containerRef} className="relative transition-all duration-1000 overflow-hidden mt-[-20rem] " 
+//          style={{ backgroundColor: isNightOps ? (mode === 'software' ? COLORS.space : COLORS.industrial) : COLORS.background }}>
+      
+//       {/* 1. THE MODE TOGGLE */}
+//       <div className="fixed top-28 right-6 z-50">
+//         <button 
+//           onClick={() => setMode(mode === 'software' ? 'industrial' : 'software')}
+//           className="p-1 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 flex items-center gap-3 pr-5 shadow-2xl"
+//         >
+//           <motion.div 
+//             animate={{ rotate: mode === 'software' ? 0 : 180 }}
+//             className={`w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg ${mode === 'software' ? 'bg-blue-600' : 'bg-orange-600'}`}>
+//             {mode === 'software' ? '💻' : '🏗️'}
+//           </motion.div>
+//           <div className="text-left">
+//             <p className="text-[10px] font-black uppercase tracking-widest text-white/50">Current View</p>
+//             <p className="text-xs font-black uppercase text-white">{mode === 'software' ? 'Software' : 'Industrial'}</p>
+//           </div>
+//         </button>
+//       </div>
+
+//       {/* 2. BIOCHEMISTRY TO CODE MORPH LINE */}
+//       <div className="absolute left-1/2 -translate-x-1/2 h-full w-px bg-gradient-to-b from-green-500 via-yellow-400 to-blue-500 opacity-20" />
+//       <motion.div 
+//         style={{ rotate: morphRotate, top: '20%' }}
+//         className="sticky left-1/2 -translate-x-1/2 z-0 opacity-10 text-[200px] pointer-events-none"
+//       >
+//         {mode === 'software' ? '⚛️' : '🛠️'}
+//       </motion.div>
+
+//       <div className="relative z-10 mb-[-8rem]">
+//         {/* 3. PROFICIENCY MATRIX */}
+//         <section className="py-24 max-w-4xl mx-auto px-6">
+//           <div className="text-center mb-16">
+//             <h2 className="text-4xl font-black mb-4 uppercase" style={{ color: isNightOps ? '#fff' : COLORS.primary }}>
+//               Proficiency <span style={{ color: COLORS.accent }}>Matrix</span>
+//             </h2>
+//             <p className="text-xs font-bold opacity-60 uppercase tracking-[0.4em]" style={{ color: isNightOps ? '#94a3b8' : COLORS.primary }}>
+//                {mode === 'software' ? 'Full Stack Development' : 'HSE & Industrial Operations'}
+//             </p>
+//           </div>
+
+//           <div className="space-y-8">
+//             {(mode === 'software' ? SKILL_BARS.software : SKILL_BARS.industrial).map((skill) => (
+//               <div key={skill.name}>
+//                 <div className="flex justify-between mb-2">
+//                   <span className="text-sm font-black uppercase text-white tracking-widest">{skill.name}</span>
+//                   <span className="text-sm font-black" style={{ color: COLORS.accent }}>{skill.level}%</span>
+//                 </div>
+//                 <div className="h-2 bg-white/5 rounded-full overflow-hidden border border-white/10">
+//                   <motion.div 
+//                     initial={{ width: 0 }}
+//                     whileInView={{ width: `${skill.level}%` }}
+//                     transition={{ duration: 1.5 }}
+//                     className="h-full relative"
+//                     style={{ backgroundColor: skill.color }}
+//                   >
+//                     <motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 2, repeat: Infinity }}
+//                                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+//                   </motion.div>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </section>
+
+//         {/* 4. CAREER TRAJECTORY SLIDER */}
+//         <section className="py-24 bg-black/30 overflow-hidden border-y border-white/5">
+//           <div className="flex">
+//             <motion.div 
+//               animate={{ x: ["0%", "-50%"] }}
+//               transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+//               className="flex gap-8 whitespace-nowrap"
+//             >
+//               {[...EXPERIENCE, ...EXPERIENCE].map((exp, i) => (
+//                 <div key={i} className="min-w-[350px] p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl">
+//                   <h3 className="text-xl font-black text-white whitespace-normal">{exp.role}</h3>
+//                   <p className="text-yellow-400 font-bold text-xs uppercase mt-2 tracking-widest">{exp.company}</p>
+//                   <p className="text-slate-400 text-sm mt-6 whitespace-normal leading-relaxed">{exp.desc}</p>
+//                 </div>
+//               ))}
+//             </motion.div>
+//           </div>
+//         </section>
+
+//         {/* 5. CERTIFICATION BADGES */}
+//         <section className="py-24 text-center">
+//           <h2 className="text-white/40 text-[10px] font-black uppercase tracking-[0.5em] mb-12">Global Certifications</h2>
+//           <div className="flex flex-wrap justify-center gap-8">
+//             {['PMP', 'AWS', 'OSHA', 'HSE 1-3', 'APM', 'HRM'].map((cert) => (
+//               <motion.div key={cert} whileHover={{ scale: 1.1, y: -5 }}
+//                 className="w-24 h-24 rounded-full border border-yellow-400/20 bg-yellow-400/5 flex items-center justify-center text-[10px] font-black text-yellow-400 shadow-[0_0_20px_rgba(255,215,0,0.05)]">
+//                 {cert}
+//               </motion.div>
+//             ))}
+//           </div>
+//         </section>
+
+//         {/* 6. CTA & DOWNLOADS */}
+//         <section className="py-20" id="links">
+//           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//             <div className="flex flex-col md:flex-row justify-between items-center p-12 rounded-[2rem] border border-white/10 backdrop-blur-3xl bg-black/40">
+//               <h2 className="text-3xl font-black text-white mb-8 md:mb-0">Ready to <span className="text-yellow-400">Launch?</span></h2>
+//               <div className="flex flex-wrap gap-4">
+//                 {SOCIAL_LINKS.map((link, index) => (
+//                   <motion.a 
+//                     key={index} 
+//                     href={link.url} 
+//                     target="_blank" 
+//                     rel="noopener noreferrer"
+//                     whileHover={{ scale: 1.05 }}
+//                     className="relative group px-10 py-4 rounded-xl text-xs font-black uppercase tracking-widest overflow-hidden transition-all"
+//                     style={{ 
+//                       backgroundColor: link.name === 'CV/Resume' ? '#fff' : COLORS.accent, 
+//                       color: COLORS.primary 
+//                     }}
+//                   >
+//                     <span className="relative z-10">{link.name === 'CV/Resume' ? 'Download CV' : link.name}</span>
+                    
+//                     {link.name === 'CV/Resume' && (
+//                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity">
+//                         {[...Array(8)].map((_, i) => (
+//                           <motion.div key={i} className="absolute w-1 h-1 bg-yellow-500 rounded-full"
+//                             animate={{ y: [0, -40], x: [0, (Math.random()-0.5)*60], opacity: [0, 1, 0] }}
+//                             transition={{ duration: 1, repeat: Infinity, delay: Math.random() }}
+//                             style={{ top: '50%', left: '50%' }}
+//                           />
+//                         ))}
+//                       </div>
+//                     )}
+//                   </motion.a>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         </section>
+ 
+//         {/* 7. CONTACT FORM */}
+//         <AnimatePresence>
+//         <motion.section className="py-24 pb-48" id="contact">
+//           <div className="max-w-3xl mx-auto px-6 p-12 rounded-[3rem] border border-white/10 bg-white/5 backdrop-blur-3xl">
+//             <h2 className="text-3xl font-black text-center text-white mb-12 uppercase tracking-widest">Send Transmission</h2>
+//             <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+//               <input type="text" placeholder="Full Name" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
+//               <input type="email" placeholder="Email Address" className="w-full bg-transparent border-b border-white/20 p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
+//               <textarea rows={4} placeholder="Inquiry Details" className="w-full bg-transparent border border-white/20 rounded-2xl p-4 outline-none text-white font-bold focus:border-yellow-400 transition-all" />
+//               <motion.button whileTap={{ scale: 0.98 }} className="w-full py-5 rounded-2xl bg-yellow-400 text-blue-900 font-black uppercase tracking-widest">
+//                 Transmit Message
+//               </motion.button>
+//             </form>
+//           </div>
+//         </motion.section>
+//         </AnimatePresence>
+//       </div>
+//     </div>
+//   );
+// };
 
 
 
