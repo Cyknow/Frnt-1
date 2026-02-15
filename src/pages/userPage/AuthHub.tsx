@@ -82,7 +82,7 @@ const AuthHub = () => {
         const role = user.role;
         if (role === 'senior-admin') navigate('/admin/command');
         else if (role === 'admin') navigate('/admin/grants');
-        else navigate('/userDb');
+        else navigate('/userdb');
       }, 2000);
 
     } catch (err: any) {

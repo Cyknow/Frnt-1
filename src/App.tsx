@@ -94,7 +94,7 @@ export default function App() {
 
         {/* --- 🔒 PROTECTED: REGULAR USER --- */}
         <Route element={<ProtectedRoute allowedRoles={['regularUser', 'admin', 'seniorAdmin']} />}>
-          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path="/userdb" element={<UserDashboard />} />
           <Route path="/grant-application" element={<GrantApplication />} />
         </Route>
 

@@ -31,11 +31,11 @@ const VerifySuccess = () => {
         </p>
 
         <button 
-          onClick={() => navigate('/signinp')}
+          onClick={() => navigate('/userdb')}
           className="w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 transition-all hover:opacity-90 shadow-xl"
           style={{ background: theme.gold }}
         >
-          ENTER COMMAND CENTER <ArrowRight size={20} />
+          Enter Dashboard <ArrowRight size={20} />
         </button>
       </motion.div>
     </div>

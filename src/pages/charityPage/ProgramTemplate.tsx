@@ -46,7 +46,7 @@ useEffect(() => {
   if (isLoggedIn && savedIntent === window.location.pathname) {
     sessionStorage.removeItem('redirect_intent'); // Clear it so it doesn't loop
     window.print();
-    setTimeout(() => navigate('/dashboard'), 2000);
+    setTimeout(() => navigate('/userdb'), 2000);
   }
 }, [isLoggedIn]);
 

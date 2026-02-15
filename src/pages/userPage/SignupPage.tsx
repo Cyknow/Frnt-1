@@ -82,7 +82,7 @@ const SignupPage = () => {
         } else if (role === 'admin') {
           navigate('/admin/grants');
         } else {
-          navigate('/userDb');
+          navigate('/userdb');
         }
       }, 3000);
 
