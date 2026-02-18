@@ -73,7 +73,7 @@ const SignupPage = () => {
       // 3. ROLE-BASED NAVIGATION BRIDGE
       setTimeout(() => {
         // 4. Update Global Auth State
-        login(token, user);
+        login(user);
         // login(response.data.token, response.data.user);
         
         const role = user.role;
@@ -84,7 +84,7 @@ const SignupPage = () => {
         } else {
           navigate('/userdb');
         }
-      }, 3000);
+      }, 500);
 
     } catch (err: any) {
       setError(err.response?.data?.message || 'A secure connection error occurred. Please check your internet connection and try again.');
