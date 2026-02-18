@@ -27,7 +27,11 @@ const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
   // If useAuth says the user isn't logged in, bounce them to login
   if (!isAuthenticated || !user) {
     return <Navigate to="/signinp" state={{ from: location }} replace />;
-  }
+  };
+
+  //isVerified check
+  // if (!user.emailVerified)
+  //   return <Navigate to="/signinp?status=verify_required" replace />;
 
   // 3. AUTHORIZATION CHECK
   // Check if the user's role (from backend) matches the required roles for this route

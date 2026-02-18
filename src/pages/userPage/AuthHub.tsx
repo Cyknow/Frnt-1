@@ -246,7 +246,7 @@ const AuthHub = () => {
               whileTap={{ scale: 0.98 }}
               
               // 2. Class logic: Use the 'disabled' attribute to decide the style
-              className={`w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 mt-4 transition-all 
+              className={`w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 mt-4 transition-all shadow-xl
                 ${(loading || (!isLogin && (!isRobotChecked || !agreedToTerms))) 
                   ? 'opacity-40 cursor-not-allowed grayscale' 
                   : 'opacity-100 cursor-pointer'
@@ -255,9 +255,9 @@ const AuthHub = () => {
               style={{ background: theme.gold }}
             >
               {loading ? (
-                isLogin ? 'SECURE ACCESS...' : 'CREATING ACCOUNT...'
+                isLogin ? 'SECURED ACCESS...' : 'CREATING ACCOUNT...'
               ) : (
-                isLogin ? 'SECURE ACCESS' : 'CREATE ACCOUNT'
+                isLogin ? 'SECURED ACCESS' : 'CREATE ACCOUNT'
               )} 
               <ArrowRight size={20} />
             </motion.button>
