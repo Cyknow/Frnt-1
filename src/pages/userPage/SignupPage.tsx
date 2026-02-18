@@ -5,7 +5,7 @@ import {
     ShieldCheck, ArrowRight, Globe, 
     Eye, EyeOff, X, CheckCircle2, Lock, User, Mail, Phone 
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthProvider';
+// import { useAuth } from '../../context/AuthProvider';
 import api from '../../axiosConfig'; // Use your custom instance
 import theme from '../../components/themes/Theme';
 import bgVid from '../../assets/VID-20251211-WA0026.mp4';
