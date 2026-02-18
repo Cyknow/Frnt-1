@@ -30,7 +30,7 @@ const strengthColors = ["bg-red-600", "bg-orange-500", "bg-yellow-500", "bg-blue
 
 const SignupPage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  // const { login } = useAuth();
   
   // UI State
   const [showPassword, setShowPassword] = useState(false);
@@ -72,8 +72,14 @@ const SignupPage = () => {
     
     try {
       // 1. BACKEND CALL (Relative to baseURL in axiosConfig)
+      // const response = await api.post('/auth/signup', formData);
       const response = await api.post('/auth/signup', formData);
-      
+      console.log("Server Response:", response.data); // Now it's being "read"
+      // const { token, user } = response.data;   // Destructure for clarity
+
+      // const token = response.data.token; 
+      // const user = response.data.data.user
+
       // 2. STOP AUTO-LOGIN: Signup now requires email verification
       setIsSuccess(true);
       

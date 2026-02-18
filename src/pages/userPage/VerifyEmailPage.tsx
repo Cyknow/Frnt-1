@@ -1,8 +1,8 @@
-import React from 'react';
+// import React from 'react';
 import { motion } from 'framer-motion';
 import { Mail, ArrowLeft, RefreshCcw, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import theme from '../../components/themes/Theme';
+// import theme from '../../components/themes/Theme';
 import bgVid from '../../assets/VID-20251211-WA0026.mp4';
 
 const VerifyEmailPage = () => {
