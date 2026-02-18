@@ -236,7 +236,33 @@ const AuthHub = () => {
                   </div>
                 )}
 
-                <motion.button
+              <motion.button
+              type="submit"
+              // 1. The button is disabled if: 
+              //    Already loading OR (it's a signup AND user hasn't finished checkboxes)
+              disabled={loading || (!isLogin && (!isRobotChecked || !agreedToTerms))}
+              
+              whileHover={{ scale: 1.02 }} 
+              whileTap={{ scale: 0.98 }}
+              
+              // 2. Class logic: Use the 'disabled' attribute to decide the style
+              className={`w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 mt-4 transition-all 
+                ${(loading || (!isLogin && (!isRobotChecked || !agreedToTerms))) 
+                  ? 'opacity-40 cursor-not-allowed grayscale' 
+                  : 'opacity-100 cursor-pointer'
+                }`}
+                
+              style={{ background: theme.gold }}
+            >
+              {loading ? (
+                isLogin ? 'SECURE ACCESS...' : 'CREATING ACCOUNT...'
+              ) : (
+                isLogin ? 'SECURE ACCESS' : 'CREATE ACCOUNT'
+              )} 
+              <ArrowRight size={20} />
+            </motion.button>
+
+                {/* <motion.button
                 type="submit"
                   disabled={!isLogin && (!isRobotChecked || !agreedToTerms || loading)}
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
@@ -244,7 +270,7 @@ const AuthHub = () => {
                   style={{ background: theme.gold }}
                 >
                   {loading ? (isLogin ? 'SECURE ACCESS...' : 'CREATING ACCOUNT...') : isLogin ? 'SECURE ACCESS' : 'CREATE ACCOUNT'} <ArrowRight size={20} />
-                </motion.button>
+                </motion.button> */}
               </motion.form>
             </AnimatePresence>
           </motion.div>
