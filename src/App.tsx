@@ -28,6 +28,7 @@ import { programData } from './pages/charityPage/data/programs';
 import { ProjectPortfolioPage } from './pages/PortfolioPage/ProjectPortfolioPage';
 import { PortfolioHero } from './pages/PortfolioPage/PortfolioHero';
 import { SkillsHub } from './pages/PortfolioPage/SkillsHub';
+import { AffiliatePage } from './pages/PortfolioPage/AffiliateHub';
 // import { PortfolioPage } from './pages/PortfolioPage/Portfolio1';
 // import Vasertile from './pages/charityPage/Vasertile';
 
@@ -48,7 +49,7 @@ import ContactMessages from './pages/adminPage/ContactMessagesSupport';
 import NewsletterList from './pages/adminPage/NewsletterList';
 import VerifySuccess from './pages/userPage/VerifySuccess';
 import VerifyIssue from './pages/userPage/VerifyIssue';
-import { AffiliatePage } from './pages/PortfolioPage/AffiliateHub';
+import VerifyEmailPage from './pages/userPage/VerifyEmailPage';
 
 export default function App() {
   // We no longer need local state here. 
@@ -89,6 +90,7 @@ export default function App() {
         {/* --- AUTHENTICATION --- */}
         <Route path="/signinp" element={<AuthHub />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/verify-success" element={<VerifySuccess />} />
         <Route path="/verify-issue" element={<VerifyIssue />} />
 
