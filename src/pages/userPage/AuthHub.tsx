@@ -29,7 +29,8 @@ const AuthHub = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState(''); // 3. Added error state
-
+  const [loading, setLoading] = useState(false);
+  
   // Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -55,6 +56,8 @@ const AuthHub = () => {
     // Safety check for signup
     if (!isLogin && (!isRobotChecked || !agreedToTerms)) return;
 
+    setLoading(true);
+
     try {
       // 2. CHANGED: Endpoints are now relative to your baseURL in axiosConfig
       const endpoint = isLogin ? '/auth/signin' : '/auth/signup';
@@ -65,29 +68,32 @@ const AuthHub = () => {
       const response = await api.post(endpoint, payload);
 
       // 3. CHANGED: Extract based on your 'createSendToken' structure
-      const token = response.data.token; 
+      // const token = response.data.token; 
       const user = response.data.data.user;
 
-      if (token) {
-        localStorage.setItem('token', token);
-      }
+      // if (token) {
+      //   localStorage.setItem('token', token);
+      // }
       // 5. Success Flow
       setIsSuccess(true);
       
       // Save token and user data to Global State
       setTimeout(() => {
-        login(token, user);
+        login(user); // This should set the user in your Auth Context, allowing the rest of your app to recognize the logged-in state
+        // login(token, user);
         
         // 6. Role-Based Redirection
         const role = user.role;
         if (role === 'senior-admin') navigate('/admin/command');
         else if (role === 'admin') navigate('/admin/grants');
         else navigate('/userdb');
-      }, 2000);
+      }, 500);
 
     } catch (err: any) {
       // 5. CHANGED: Better error pathing
       setError(err.response?.data?.message || 'A secure connection error occurred. Please check your internet connection and try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -231,12 +237,13 @@ const AuthHub = () => {
                 )}
 
                 <motion.button
-                  disabled={!isLogin && (!isRobotChecked || !agreedToTerms)}
+                type="submit"
+                  disabled={!isLogin && (!isRobotChecked || !agreedToTerms || loading)}
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 mt-4 transition-all ${(!isLogin && (!isRobotChecked || !agreedToTerms)) ? 'opacity-40 grayscale' : 'opacity-100 shadow-xl shadow-yellow-400/20'}`}
+                  className={`w-full py-4 rounded-2xl font-black text-slate-950 flex items-center justify-center gap-2 mt-4 transition-all ${(!isLogin && (!isRobotChecked || !agreedToTerms)) ? 'opacity-100' : 'opacity-40 cursor-not-allowed grayscale'}`}
                   style={{ background: theme.gold }}
                 >
-                  {isLogin ? 'SECURE ACCESS' : 'CREATE ACCOUNT'} <ArrowRight size={20} />
+                  {loading ? (isLogin ? 'SECURE ACCESS...' : 'CREATING ACCOUNT...') : isLogin ? 'SECURE ACCESS' : 'CREATE ACCOUNT'} <ArrowRight size={20} />
                 </motion.button>
               </motion.form>
             </AnimatePresence>

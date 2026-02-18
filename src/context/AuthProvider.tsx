@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-// 1. Updated Interface to match your navigation roles
+// 1. Updated Interface to match your navigation roles   /* ================= TYPES ================= */
 interface User {
   id: string;
   name: string;
@@ -12,77 +12,124 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  token: string | null;
+  // token: string | null;
   loading: boolean;
-  login: (token: string, userData: User) => void;
+  login: (
+    // token: string, 
+    userData: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }
 
+
+/* ================= AXIOS CONFIG ================= */
+axios.defaults.baseURL = 'https://newbkd-wcc-api.onrender.com';
+axios.defaults.withCredentials = true;
+
+/* ================= CONTEXT ================= */
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Base URL configuration - change this to your deployed URL later
-axios.defaults.baseURL = 'https://newbkd-wcc-api.onrender.com/';
-
+// // Base URL configuration - change this to your deployed URL later
+// axios.defaults.baseURL = 'https://newbkd-wcc-api.onrender.com/';
+/* ================= PROVIDER ================= */
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  // const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  // 2. Axios Interceptor: Automatically attaches Token to every request
-  useEffect(() => {
-    const interceptor = axios.interceptors.request.use((config) => {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      return config;
-    });
-    return () => axios.interceptors.request.eject(interceptor);
-  }, [token]);
-
-  // 3. Verify Session on Load
+ /* ---------- VERIFY SESSION ---------- */
   const verifyUser = useCallback(async () => {
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+    // if (!token) {
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       // Logic: Ask the backend "Who is this token owner?"
-      const res = await axios.get('https://newbkd-wcc-api.onrender.com/api/auth/me');
-      setUser(res.data);
-    } catch (err) {
-      console.error("Session expired or invalid token");
-      logout(); // Clear invalid data
+      const res = await axios.get('/auth/me');
+      setUser(res.data.data.user);
+    } catch (error) {
+      console.error("Session expired or invalid pass");
+      setUser(null);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     verifyUser();
   }, [verifyUser]);
 
-  const login = (newToken: string, userData: User) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
+
+
+
+
+
+  // // 2. Axios Interceptor: Automatically attaches Token to every request
+  // useEffect(() => {
+  //   const interceptor = axios.interceptors.request.use((config) => {
+  //     if (token) {
+  //       config.headers.Authorization = `Bearer ${token}`;
+  //     }
+  //     return config;
+  //   });
+  //   return () => axios.interceptors.request.eject(interceptor);
+  // }, [token]);
+
+  // 3. Verify Session on Load
+  // const verifyUser = useCallback(async () => {
+  //   if (!token) {
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     // Logic: Ask the backend "Who is this token owner?"
+  //     const res = await axios.get('https://newbkd-wcc-api.onrender.com/api/auth/me');
+  //     setUser(res.data);
+  //   } catch (err) {
+  //     console.error("Session expired or invalid token");
+  //     logout(); // Clear invalid data
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [token]);
+
+  // useEffect(() => {
+  //   verifyUser();
+  // }, [verifyUser]);
+
+  const login = (
+    // newToken: string, 
+    userData: User) => {
+    // localStorage.setItem('token', newToken);
+    // localStorage.setItem('user', JSON.stringify(userData));
+    // setToken(newToken);
     setUser(userData);
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
+  const logout = async() => {
+    try{
+      await axios.post('/auth/logout')
+    } catch (_) {
+
+    } finally {
+      setUser(null);
+      window.location.href = '/signinp';
+    }
+    // localStorage.removeItem('token');
     // 2. Clear any other stored user data
-  localStorage.removeItem('user');
-    setToken(null);
-    setUser(null);
+  // localStorage.removeItem('user');
+  //   setToken(null);
+  //   setUser(null);
     // Optional: Redirect to login
-    window.location.href = '/signinp';
+    
   };
 
   return (
     <AuthContext.Provider value={{ 
       user, 
-      token, 
+      // token, 
       loading, 
       login, 
       logout,
