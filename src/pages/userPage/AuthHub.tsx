@@ -72,7 +72,7 @@ const AuthHub = () => {
     setLoading(true);
 
     try {
-      const endpoint = isLogin ? '/auth/signin' : '/auth/signup';
+      const endpoint = isLogin ? '/auth/signinp' : '/auth/signup';
       const payload = isLogin 
         ? { email: formData.email, password: formData.password }
         : formData;
@@ -86,7 +86,7 @@ const AuthHub = () => {
         setTimeout(() => {
             setIsSuccess(false);
             // Redirect them to the new welcoming page you just created
-          navigate('/verify-email');
+          navigate('/verifyemail');
             setIsLogin(true); // Switch to login view so they can sign in after verifying
             setFormData(prev => ({ ...prev, password: '' })); // Clear password for security
         }, 3000);
@@ -305,7 +305,7 @@ const AuthHub = () => {
               </motion.div>
               
               <h2 className="text-3xl font-black text-white italic uppercase tracking-tighter">
-                  {isLogin ? "AUTHENTICATED" : "WELCOME TO THE VANGUARD"}
+                  {isLogin ? "AUTHENTICATED" : "WELCOME TO THE WERE-CARE CHARITY"}
               </h2>
               
               <p className="text-slate-500 mt-2 font-medium tracking-widest uppercase text-[10px] max-w-xs">

@@ -90,7 +90,7 @@ export default function App() {
         {/* --- AUTHENTICATION --- */}
         <Route path="/signinp" element={<AuthHub />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/verifyemail" element={<VerifyEmailPage />} />
         <Route path="/verify-success" element={<VerifySuccess />} />
         <Route path="/verify-issue" element={<VerifyIssue />} />
 

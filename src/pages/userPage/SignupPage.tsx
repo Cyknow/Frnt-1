@@ -87,7 +87,7 @@ const SignupPage = () => {
       setTimeout(() => {
         setIsSuccess(false);
         // We don't call login(user) here because they aren't verified yet
-        navigate('/verify-email'); // Redirect to login page
+        navigate('/verifyemail'); // Redirect to login page
       }, 3000);
 
     } catch (err: any) {

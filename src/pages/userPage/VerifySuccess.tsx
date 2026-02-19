@@ -27,7 +27,7 @@ const VerifySuccess = () => {
 
         <h2 className="text-3xl font-black text-white italic uppercase mb-4 tracking-tight">Access Granted</h2>
         <p className="text-slate-400 text-sm leading-relaxed mb-8 uppercase tracking-widest font-bold text-[10px]">
-          Your global identity has been verified. You are now cleared to enter the Vanguard network.
+          Welcome to Were-Care Charity, Your global identity has been verified. You can now access your darshboard and explore positive impacts. <br/> Thanks for choosing WCC .
         </p>
 
         <button 

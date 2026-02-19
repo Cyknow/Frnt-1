@@ -49,12 +49,12 @@ const VerifyEmailPage = () => {
           <h1 className="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter mb-6">
             Almost There, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-              Vanguard.
+              Were-Care Charity
             </span>
           </h1>
           
           <p className="text-slate-300 text-lg md:text-xl max-w-lg mx-auto leading-relaxed font-medium mb-12">
-            A secure transmission has been sent to your inbox. Please click the verification link to activate your global dashboard access.
+            A secure verification mail has been sent to your inbox. Please click the verification link to activate your global dashboard access.
           </p>
 
           {/* ACTIONS */}
@@ -101,7 +101,7 @@ const VerifyEmailPage = () => {
       
       {/* DECORATIVE ELEMENTS */}
       <div className="absolute bottom-10 left-10 hidden lg:block opacity-20">
-        <p className="text-white font-black text-9xl italic select-none">VNGD</p>
+        <p className="text-white font-black text-9xl italic select-none">WCC</p>
       </div>
     </div>
   );
