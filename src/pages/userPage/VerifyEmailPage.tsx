@@ -47,14 +47,14 @@ const VerifyEmailPage = () => {
 
           {/* TEXT CONTENT */}
           <h1 className="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter mb-6">
-            Almost There, <br />
+            Almost  There, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
               Were-Care Charity
             </span>
           </h1>
           
           <p className="text-slate-300 text-lg md:text-xl max-w-lg mx-auto leading-relaxed font-medium mb-12">
-            A secure verification mail has been sent to your inbox. Please click the verification link to activate your global dashboard access.
+            A secured verification mail has been sent to your inbox. Please click the verification link to activate your global account.
           </p>
 
           {/* ACTIONS */}
@@ -86,7 +86,7 @@ const VerifyEmailPage = () => {
             className="mt-16 pt-8 border-t border-white/5 space-y-4"
           >
             <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
-              Didn't receive the transmission?
+              Didn't receive a verification Email?
             </p>
             <button 
               className="text-yellow-400 hover:text-yellow-300 transition-colors flex items-center gap-2 mx-auto text-sm font-black uppercase tracking-tighter group"
