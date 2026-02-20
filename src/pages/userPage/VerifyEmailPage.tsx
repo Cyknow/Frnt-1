@@ -46,10 +46,10 @@ const VerifyEmailPage = () => {
           </div>
 
           {/* TEXT CONTENT */}
-          <h1 className="text-4xl md:text-6xl font-black text-white italic uppercase tracking-tighter mb-6">
+          <h1 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tighter mb-6">
             Almost  There, <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-              Were-Care Charity
+              Weren-Care Charity
             </span>
           </h1>
           
